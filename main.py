@@ -418,14 +418,18 @@ class Dos:
                 api_key = user["data"]["api_secret"] or None
 
                 if api_key:
-    self.api_keys[email] = api_key
-    return True
+                    self.api_keys[email] = api_key
+                    return True
 
                 generate = await self.generate_apikey(email, use_proxy, rotate_proxy, proxy)
                 if generate and generate.get("status") == "Success":
                     self.api_keys[email] = generate["data"]["api_secret"]
 
-                    self.print_message(email, proxy, Fore.GREEN, "API Key Generated Successfully"
+                    self.print_message(
+                        email,
+                        proxy,
+                        Fore.GREEN,
+                        "API Key Generated Successfully"
                         f"{Fore.MAGENTA + Style.BRIGHT}-{Style.RESET_ALL}"
                         f"{Fore.CYAN + Style.BRIGHT} API Key: {Style.RESET_ALL}"
                         f"{Fore.WHITE + Style.BRIGHT}{self.api_keys[email]}{Style.RESET_ALL}"
